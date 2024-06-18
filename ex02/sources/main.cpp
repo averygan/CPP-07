@@ -12,15 +12,6 @@
 
 #include "Array.hpp"
 
-// int main(void)
-// {
-// 	Array<int> obj(3);
-// 	Array<int> obj2(obj);
-// 	Array<int> obj3;
-
-// 	obj3 = obj2;
-// }
-
 void print_test(std::string string)
 {
 	std::cout << GREEN << std::endl << string << std::endl;
@@ -28,8 +19,6 @@ void print_test(std::string string)
 		std::cout << "-";
 	std::cout << RESET << std::endl;
 }
-
-#define MAX_VAL 750
 
 int test_subject()
 {
@@ -81,9 +70,38 @@ int test_subject()
     return 0;
 }
 
-// To do: add test cases
+void test_cases()
+{
+    print_test("Creating empty array");
+    Array<int> test;
+    std::cout << "Array has the size of " << test.size() << std::endl;
+
+    print_test("Creating array of size 10");   
+    Array<int> array(10);
+    std::cout << "Array has the size of " << array.size() << std::endl;
+
+    print_test("Updating and printing array values");   
+    for (int i = 0; i < 10; i++)
+    {
+        array[i] = rand() % 100;
+        std::cout << "[" << i << "]" << " value is " << array[i] << std::endl;
+    }
+    print_test("Testing exceptions for invalid sbuscript val");   
+    try
+    {
+        array[10000];
+    }
+    catch (const std::exception & e)
+    {
+        std::cout << "exception for: " << e.what() << std::endl;
+    }
+    print_test("END OF TESTS");
+}
+
 int main(void)
 {
 	print_test("TESTING SUBJECT CASES");
 	test_subject();
+    print_test("TESTING OTHER CASES");
+    test_cases();
 }

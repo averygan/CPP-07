@@ -17,6 +17,7 @@
 #include <cstdlib>
 
 #define ARR_LEN 5
+#define MAX_VAL 750
 
 # define BROWN "\033[1;33m"
 # define RED "\033[1;31m"
@@ -39,27 +40,19 @@ class Array {
 
 	public:
 		// Constructor
-		Array()
+		Array() : len(0)
 		{
 			std::cout << "Default constructor called" << std::endl;
-			elements = new T[ARR_LEN];
-			len = ARR_LEN;
-			for (int i = 0; i < ARR_LEN; i++)
-			{
-				// std::cout << "assigning value" << std::endl;
-				elements[i] = 0;
-			}
+			elements = new T[len];
 		}
 
 		// Param constructor
-		Array(unsigned int n)
+		Array(unsigned int n) : len(n)
 		{
 			std::cout << "Param constructor called" << std::endl;
-			elements = new T[n];
-			len = n;
+			elements = new T[len];
 			for (unsigned int i = 0; i < n; i++)
 			{
-				// std::cout << "assigning value" << std::endl;
 				elements[i] = 0;
 			}
 		}
@@ -69,17 +62,17 @@ class Array {
 		{
 			std::cout << "Copy constructor called" << std::endl;
 			for (unsigned int i = 0; i < copy.len; i++)
-				{
-					// std::cout << "copying value from copy constructor" << std::endl;
-					elements[i] = copy.elements[i];
-				}
+			{
+				elements[i] = copy.elements[i];
+			}
 		}
 
 		// Destructor
 		~Array()
 		{
 			std::cout << "Destructor called" << std::endl;
-			delete [] elements;
+			if (elements != NULL)
+				delete [] elements;
 		}
 
 		// Assignment operator
@@ -88,12 +81,12 @@ class Array {
 			std::cout << "Assignment operator called" << std::endl;
 			if (this == &copy)
 				return *this;
-			delete [] elements;
+			if (elements != NULL)
+				delete [] elements;
 			elements = new T[copy.len];
 			len = copy.len;
 			for (unsigned int i = 0; i < copy.len; i++)
 			{
-				// std::cout << "copying value from assignment operator" << std::endl;
 				elements[i] = copy.elements[i];
 			}
 			return *this;
